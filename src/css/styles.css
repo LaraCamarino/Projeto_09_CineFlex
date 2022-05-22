@@ -1,0 +1,242 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #E5E5E5;
+    color: #293845;
+}
+
+.header {
+    width: 100vw;
+    height: 67px;
+    background-color: #C3CFD9;
+    color: #E8833A;
+    font-size: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+}
+
+section {
+    margin-top: 67px;
+    margin-bottom: 117px;
+}
+
+.tela-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tela-principal > h2 {
+    font-size: 24px;
+    margin: 40px 0px;
+}
+
+.filmes {
+    width: 320px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.filmes img {
+    width: 129px;
+    height: 193px;
+    border: 8px solid #FFFFFF;
+    border-radius: 3px;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.tela-horarios, .tela-assentos, .tela-sucesso {
+    padding-top: 40px;
+}
+
+.tela-horarios > h2, .tela-assentos > h2, .tela-sucesso > h2 {
+    font-size: 24px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.horario {
+    padding-left: 24px;
+}
+
+.horario p {
+    font-size: 20px;
+}
+
+.opcoes-horario {
+    margin: 22px 0px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.opcoes-horario button {
+    width: 83px;
+    height: 43px;
+    background-color: #E8833A;
+    font-size: 18px;
+    color: #FFFFFF;
+    border: 0px;
+    border-radius: 3px;
+    margin-right: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer {
+    width: 100vw;
+    height: 117px;
+    padding: 14px 10px;
+    background-color: #DFE6ED;
+    border-top: 1px solid #9EADBA;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+}
+
+.footer img {
+    width: 48px;
+    height: 72px;
+    border: 8px solid #FFFFFF;
+    border-radius: 2px;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+}
+
+.footer p {
+    font-size: 26px;
+    margin-left: 14px;
+    margin-bottom: 3px;
+}
+
+.assentos-disponiveis {
+    padding: 0px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.assento {
+    width: 26px;
+    height: 26px;
+    background-color: #C3CFD9;
+    border: 1px solid #808F9D;
+    border-radius: 14px;
+    margin-right: 7px;
+    margin-bottom: 18px;
+    font-size: 11px;    
+}
+
+.selecionado {
+    background-color: #8DD7CF;
+    border: 1px solid #1AAE9E;
+}
+
+.indisponivel {
+    background-color: #FBE192;
+    border: 1px solid #F7C52B;
+}
+
+.assentos-opcoes {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 41px;
+}
+
+.assentos-opcoes button {
+    margin-bottom: 7px;
+}
+
+.assentos-opcoes div {
+    display: flex;
+    flex-direction: column;
+    margin-right: 12px;
+    align-items: center;
+}
+
+.informacao-assentos {
+    padding: 0px 24px;
+    margin-bottom: 57px;
+}
+
+.informacao-assentos h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.informacao-assentos input {
+    width: 100%;
+    height: 51px;
+    border: 1px solid #D4D4D4;
+    border-radius: 3px;
+    margin-bottom: 7px;
+}
+
+.informacao-assentos input::placeholder {
+    color:#AFAFAF;
+    font-style: italic;
+}
+
+.reservar {
+    display: flex;
+    justify-content: center;
+}
+
+.reservar button {
+    width: 225px;
+    height: 42px;
+    border: 0px;
+    border-radius: 3px;
+    background-color: #E8833A;
+    color: #FFFFFF;
+    font-size: 18px;
+}
+
+.tela-sucesso h2 {
+    font-weight: 700;
+    color: #247A6B;
+}
+
+.informacoes-pedido {
+    margin-bottom: 92px;
+    padding: 0px 24px;
+}
+
+.info {
+    margin-bottom: 35px;
+}
+
+.info h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px ;
+}
+
+.info p {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.voltar-home {
+    display: flex;
+    justify-content: center;
+}
+
+.voltar-home button {
+    width: 225px;
+    height: 42px;
+    border: 0px;
+    border-radius: 3px;
+    background-color: #E8833A;
+    color: #FFFFFF;
+    font-size: 18px;
+}
