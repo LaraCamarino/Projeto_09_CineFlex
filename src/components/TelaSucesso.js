@@ -22,7 +22,10 @@ export default function TelaSucesso() {
 
             </div>
             <div className="voltar-home">
-                <button>Voltar pra Home</button>
+            
+            <button>Voltar pra Home</button>
+
+     
             </div>
         </section>
     )

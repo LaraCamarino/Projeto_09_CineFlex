@@ -21,13 +21,12 @@ export default function TelaPrincipal() {
     }, []);
 
     return (
-        <section class="tela-principal">
+        <section className="tela-principal">
             <h2>Selecione o filme</h2>
-            <div class="filmes">
+            <div className="filmes">
                 {
                     filmes.map((item, index) => <Filme key={index} id={item.id} source={item.posterURL} />)
                 }
-
             </div>
         </section>
     )
