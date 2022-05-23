@@ -1,67 +1,80 @@
 import axios from "axios";
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Footer from "./Footer";
 
-function Assento({ numero, disponivel, id }) {
+function Assento({ numero, disponivel, id, idsSelecionados, setIdsSelecionados, numerosSelecionados, setNumerosSelecionados }) {
 
-    const [selecionar, setSelecionar] = useState("não");
-    const [assentoSelecionado, setAssentoSelecionado] = useState([]);
+    const [selecionar, setSelecionar] = useState(true);
 
-    function selecionarAssento() {
-        setSelecionar("sim")
-        if (selecionar === "sim") {
-            setSelecionar("não")
+    function selecionarAssento(numero, id) {
+        setSelecionar(!selecionar);
+        if (selecionar) {
+            setIdsSelecionados([...idsSelecionados, id]);
+            setNumerosSelecionados([...numerosSelecionados, numero])
         }
-        if (!disponivel) {
-            alert("Esse assento não está disponível. Por favor, selecione outro.")
+        else {
+            setIdsSelecionados(idsSelecionados.filter((item) => item !== id));
+            setNumerosSelecionados(numerosSelecionados.filter((item) => item !== numero));
         }
     }
 
-    if (!disponivel) {
-        return (
-            <button className="assento indisponivel" onClick={selecionarAssento}>{numero}</button>
-        )
-    }
-    if (disponivel && selecionar === "sim") {
-        return (
-            <button className="assento selecionado" onClick={selecionarAssento}>{numero}</button>
-        )
-    }
-    else {
-        return (
-            <button className="assento" onClick={selecionarAssento}>{numero}</button>
-        )
-    }
-
-
+    return (
+        <>
+            {
+                !disponivel ?
+                    <button className="assento indisponivel" onClick={() => alert("Esse assento não está disponível. Por favor, selecione outro.")}>{numero}</button>
+                    :
+                    <button className={selecionar ? "assento" : "assento selecionado"}
+                        onClick={() => selecionarAssento(numero, id)}>{numero}</button>
+            }
+        </>
+    )
 }
 
-function Formulario() {
+function Formulario({ reservar, assentos, idsSelecionados, numerosSelecionados }) {
 
     const [nome, setNome] = useState("");
     const [cpf, setCPF] = useState("");
+    const navigateTo = useNavigate();
+
 
     function enviarFormulario(event) {
         event.preventDefault();
-
         const dados = {
-            ids: [],
-            name: nome,
+            filme: assentos.movie.title,
+            data: assentos.day.date,
+            hora: assentos.name,
+            ids: idsSelecionados,
+            numeros: numerosSelecionados,
+            nome: nome,
             cpf: cpf
         }
-        console.log(dados);
 
-        //const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", dados)
+        const dadosAPI = {
+            ids: dados.ids,
+            name: dados.nome,
+            cpf: dados.cpf
+        };
 
+        if (idsSelecionados.length > 0 && nome.length > 0 && cpf.length === 11) {
+            const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", dadosAPI
+            );
+
+            promise.then(() => {
+                console.log("Enviou")
+                reservar(dados);
+                navigateTo("/sucesso");
+            });
+        }
     }
 
     return (
         <form onSubmit={enviarFormulario}>
             <div className="informacao-assentos">
-                <label for="campoNome">Nome do comprador:</label>
+                <label htmlFor="campoNome">Nome do comprador:</label>
                 <input type="text" id="campoNome" placeholder="Digite seu nome..." value={nome} onChange={(e) => setNome(e.target.value)}></input>
-                <label for="campoCPF" >CPF do comprador:</label>
+                <label htmlFor="campoCPF" >CPF do comprador:</label>
                 <input type="text" id="campoCPF" placeholder="Digite seu CPF..." value={cpf} onChange={(e) => setCPF(e.target.value)} ></input>
             </div>
             <div className="reservar">
@@ -71,9 +84,12 @@ function Formulario() {
     )
 }
 
-export default function TelaAssentos() {
+export default function TelaAssentos({ reservar }) {
+
     const { idSessao } = useParams();
     const [assentos, setAssentos] = useState({});
+    const [idsSelecionados, setIdsSelecionados] = useState([]);
+    const [numerosSelecionados, setNumerosSelecionados] = useState([]);
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`);
@@ -85,7 +101,6 @@ export default function TelaAssentos() {
     }, []);
 
     let qtosAssentos = assentos.seats;
-    console.log(assentos)
 
 
     return (
@@ -97,8 +112,11 @@ export default function TelaAssentos() {
                     !qtosAssentos ?
                         <h2>Carregando</h2>
                         :
-                        qtosAssentos.map((item, index) => <Assento key={index} id={item.id} numero={item.name} disponivel={item.isAvailable} />)
+                        qtosAssentos.map((item, index) => <Assento key={index} id={item.id} numero={item.name} disponivel={item.isAvailable} idsSelecionados={idsSelecionados} setIdsSelecionados={setIdsSelecionados}
+                            numerosSelecionados={numerosSelecionados} setNumerosSelecionados={setNumerosSelecionados} />)
                 }
+
+
 
             </div>
             <div className="assentos-opcoes">
@@ -115,13 +133,13 @@ export default function TelaAssentos() {
                     <p>Indisponível</p>
                 </div>
             </div>
-            <Formulario />
+            <Formulario reservar={reservar} assentos={assentos} idsSelecionados={idsSelecionados} numerosSelecionados={numerosSelecionados} />
 
             {
                 assentos.movie === undefined ?
                     <h2>Carregando</h2>
                     :
-                    <Footer imagem={assentos.movie.posterURL} filme={assentos.movie.title} dia={assentos.day.weekday} hora={assentos.day.date} />
+                    <Footer imagem={assentos.movie.posterURL} filme={assentos.movie.title} dia={assentos.day.weekday} hora={assentos.name} />
             }
 
         </section>

@@ -1,4 +1,7 @@
-export default function TelaSucesso() {
+import { Link } from "react-router-dom";
+
+export default function TelaSucesso({ dadosPedido }) {
+
     return (
         <section className="tela-sucesso">
             <h2>Pedido feito
@@ -6,26 +9,25 @@ export default function TelaSucesso() {
             <div className="informacoes-pedido">
                 <div className="info">
                     <h3>Filme e sessão</h3>
-                    <p>The Batman</p>
-                    <p>24/06/2021 15:00</p>
+                    <p>{dadosPedido.filme}</p>
+                    <p>{dadosPedido.data} {dadosPedido.hora}</p>
                 </div>
                 <div className="info">
                     <h3>Ingressos</h3>
-                    <p>Assento 15</p>
-                    <p>Assento 16</p>
+                    {
+                        dadosPedido.numeros.map((numero, index) => <p key={index} >Assento {numero}</p>)
+                    }
                 </div>
                 <div className="info">
                     <h3>Comprador</h3>
-                    <p>Nome: João da Silva Sauro</p>
-                    <p>CPF: 123.456.789-10</p>
+                    <p>Nome: {dadosPedido.nome}</p>
+                    <p>CPF: {dadosPedido.cpf}</p>
                 </div>
-
             </div>
             <div className="voltar-home">
-            
-            <button>Voltar pra Home</button>
-
-     
+                <Link to={"/"}>
+                    <button>Voltar pra Home</button>
+                </Link>
             </div>
         </section>
     )
