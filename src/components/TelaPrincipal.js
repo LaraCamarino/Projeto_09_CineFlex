@@ -32,7 +32,8 @@ export default function TelaPrincipal() {
             {
                 filmes.length === 0 ?
                     <Loading />
-                    : <div className="filmes">
+                    : 
+                    <div className="filmes">
                         {
 
                             filmes.map((item, index) => <Filme key={index} id={item.id} source={item.posterURL} />)

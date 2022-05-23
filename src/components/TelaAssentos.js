@@ -112,7 +112,8 @@ export default function TelaAssentos({ reservar }) {
             <h2>Selecione o(s) assento(s)</h2>
             {
                 !qtosAssentos ?
-                    <Loading /> :
+                    <Loading /> 
+                    :
                     <div className="assentos-disponiveis">
 
                         {
@@ -140,10 +141,6 @@ export default function TelaAssentos({ reservar }) {
                     </div>
 
             }
-
-
-
-
 
             {
                 assentos.movie === undefined ?

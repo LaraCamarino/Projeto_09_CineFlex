@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 export default function TelaSucesso({ dadosPedido }) {
     
-
     return (
         <section className="tela-sucesso">
             <h2>Pedido feito

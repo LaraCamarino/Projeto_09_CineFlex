@@ -22,7 +22,7 @@ function Sessao({ dia, data, horario }) {
 }
 
 export default function TelaSessoes() {
-        useEffect(() => {
+    useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
@@ -43,14 +43,18 @@ export default function TelaSessoes() {
     return (
         <section className="tela-horarios">
             <h2>Selecione o horário</h2>
-            <div className="horario">
-                {
-                    !diaSessao ?
-                        <Loading />
-                        :
-                        diaSessao.map((item, index) => <Sessao key={index} dia={item.weekday} data={item.date} horario={item.showtimes} />)
-                }
-            </div>
+
+            {
+                !diaSessao ?
+                    <Loading />
+                    :
+                    <div className="horario">
+                        {
+                            diaSessao.map((item, index) => <Sessao key={index} dia={item.weekday} data={item.date} horario={item.showtimes} />)
+
+                        }
+                    </div>
+            }
 
             <Footer imagem={sessoes.posterURL} filme={sessoes.title} />
 
