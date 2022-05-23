@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Header from './Header';
 import TelaPrincipal from "./TelaPrincipal";
 import TelaAssentos from "./TelaAssentos";
 import TelaSucesso from "./TelaSucesso";
@@ -12,7 +13,7 @@ export default function App() {
 
     return (
         <BrowserRouter>
-                    <header className="header">CINEFLEX</header>
+                    <Header />
             <Routes>
                 <Route path="/" element={<TelaPrincipal />} ></Route>
                 <Route path="/sessoes/:idFilme" element={<TelaSessoes />} ></Route>

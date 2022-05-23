@@ -12,8 +12,6 @@ body {
     width: 100vw;
     height: 67px;
     background-color: #C3CFD9;
-    color: #E8833A;
-    font-size: 34px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,20 +19,34 @@ body {
     top: 0;
 }
 
+.header h1 {
+    color: #E8833A;
+    font-size: 34px;
+}
+
+.header ion-icon {
+    color: #E8833A;
+    font-size: 25px;
+    position: absolute;
+    left: 30px;
+}
+
 section {
     margin-top: 67px;
     margin-bottom: 117px;
+    padding: 40px 0px 30px;
 }
 
 .tela-principal {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 0px;
 }
 
-.tela-principal > h2 {
+.ou {
     font-size: 24px;
-    margin: 40px 0px;
+    margin-bottom: 40px;
 }
 
 .filmes {
@@ -57,7 +69,7 @@ section {
     padding-top: 40px;
 }
 
-.tela-horarios > h2, .tela-assentos > h2, .tela-sucesso > h2 {
+.tela-principal > h2,.tela-horarios > h2, .tela-assentos > h2, .tela-sucesso > h2 {
     font-size: 24px;
     margin-bottom: 40px;
     display: flex;
@@ -90,6 +102,10 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.opcoes-horario a {
+    text-decoration: none;
 }
 
 .footer {
@@ -159,7 +175,7 @@ section {
 .assentos-opcoes div {
     display: flex;
     flex-direction: column;
-    margin-right: 12px;
+    margin-right: 15px;
     align-items: center;
 }
 
@@ -177,7 +193,7 @@ section {
     height: 51px;
     border: 1px solid #D4D4D4;
     border-radius: 3px;
-    margin-bottom: 7px;
+    margin: 3px 0px 10px;
 }
 
 .informacao-assentos input::placeholder {
@@ -238,4 +254,21 @@ section {
     background-color: #E8833A;
     color: #FFFFFF;
     font-size: 18px;
+}
+
+.loading {
+    max-width: 150px;
+}
+
+.loading img{
+    width: 150px;
+    display: flex;
+    justify-content: center;
+}
+
+.loading h3 {
+    font-size: 25px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
 }

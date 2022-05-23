@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import Footer from "./Footer";
+import Loading from "./Loading";
 
 function Sessao({ dia, data, horario }) {
     return (
@@ -21,6 +22,10 @@ function Sessao({ dia, data, horario }) {
 }
 
 export default function TelaSessoes() {
+        useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const { idFilme } = useParams();
     const [sessoes, setSessoes] = useState({});
 
@@ -41,7 +46,7 @@ export default function TelaSessoes() {
             <div className="horario">
                 {
                     !diaSessao ?
-                        <h2>Carregando</h2>
+                        <Loading />
                         :
                         diaSessao.map((item, index) => <Sessao key={index} dia={item.weekday} data={item.date} horario={item.showtimes} />)
                 }

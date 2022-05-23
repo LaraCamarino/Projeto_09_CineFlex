@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Footer from "./Footer";
+import Loading from "./Loading";
 
 function Assento({ numero, disponivel, id, idsSelecionados, setIdsSelecionados, numerosSelecionados, setNumerosSelecionados }) {
 
@@ -85,6 +86,9 @@ function Formulario({ reservar, assentos, idsSelecionados, numerosSelecionados }
 }
 
 export default function TelaAssentos({ reservar }) {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const { idSessao } = useParams();
     const [assentos, setAssentos] = useState({});
@@ -106,38 +110,44 @@ export default function TelaAssentos({ reservar }) {
     return (
         <section className="tela-assentos">
             <h2>Selecione o(s) assento(s)</h2>
-            <div className="assentos-disponiveis">
+            {
+                !qtosAssentos ?
+                    <Loading /> :
+                    <div className="assentos-disponiveis">
 
-                {
-                    !qtosAssentos ?
-                        <h2>Carregando</h2>
-                        :
-                        qtosAssentos.map((item, index) => <Assento key={index} id={item.id} numero={item.name} disponivel={item.isAvailable} idsSelecionados={idsSelecionados} setIdsSelecionados={setIdsSelecionados}
-                            numerosSelecionados={numerosSelecionados} setNumerosSelecionados={setNumerosSelecionados} />)
-                }
+                        {
+                            qtosAssentos.map((item, index) => <Assento key={index} id={item.id} numero={item.name} disponivel={item.isAvailable} idsSelecionados={idsSelecionados} setIdsSelecionados={setIdsSelecionados}
+                                numerosSelecionados={numerosSelecionados} setNumerosSelecionados={setNumerosSelecionados} />)
+
+                        }
+
+                        <div className="assentos-opcoes">
+                            <div>
+                                <button className="assento selecionado"></button>
+                                <p>Selecionado</p>
+                            </div>
+                            <div>
+                                <button className="assento"></button>
+                                <p>Disponível</p>
+                            </div>
+                            <div>
+                                <button className="assento indisponivel"></button>
+                                <p>Indisponível</p>
+                            </div>
+                        </div>
+
+                        <Formulario reservar={reservar} assentos={assentos} idsSelecionados={idsSelecionados} numerosSelecionados={numerosSelecionados} />
+                    </div>
+
+            }
 
 
 
-            </div>
-            <div className="assentos-opcoes">
-                <div>
-                    <button className="assento selecionado"></button>
-                    <p>Selecionado</p>
-                </div>
-                <div>
-                    <button className="assento"></button>
-                    <p>Disponível</p>
-                </div>
-                <div>
-                    <button className="assento indisponivel"></button>
-                    <p>Indisponível</p>
-                </div>
-            </div>
-            <Formulario reservar={reservar} assentos={assentos} idsSelecionados={idsSelecionados} numerosSelecionados={numerosSelecionados} />
+
 
             {
                 assentos.movie === undefined ?
-                    <h2>Carregando</h2>
+                    <></>
                     :
                     <Footer imagem={assentos.movie.posterURL} filme={assentos.movie.title} dia={assentos.day.weekday} hora={assentos.name} />
             }
