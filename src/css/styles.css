@@ -168,9 +168,8 @@ section {
     margin-bottom: 57px;
 }
 
-.informacao-assentos h3 {
+.informacao-assentos label {
     font-size: 18px;
-    margin-bottom: 5px;
 }
 
 .informacao-assentos input {

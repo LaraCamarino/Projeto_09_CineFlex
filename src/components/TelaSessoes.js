@@ -2,15 +2,20 @@ import axios from "axios";
 import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-function Sessao({ dia, data, horario, id }) {
+import Footer from "./Footer";
+
+function Sessao({ dia, data, horario }) {
     return (
         <>
             <p>{dia} - {data}</p>
-            <Link to={`/assentos/${id}`}>
+
             <div className="opcoes-horario">
-                {horario.map((item, index) => <button key={index}>{item.name}</button>)}
+                {horario.map((item, index) =>
+                    <Link to={`/assentos/${item.id}`} key={index}>
+                        <button key={index}>{item.name}</button>
+                    </Link>)}
             </div>
-            </Link>
+
         </>
     )
 }
@@ -26,8 +31,6 @@ export default function TelaSessoes() {
             setSessoes({ ...response.data })
         });
 
-
-
     }, []);
 
     let diaSessao = sessoes.days;
@@ -39,15 +42,13 @@ export default function TelaSessoes() {
                 {
                     !diaSessao ?
                         <h2>Carregando</h2>
-                    :
-                        diaSessao.map((item, index) => <Sessao key={index} id={item.id} dia={item.weekday} data={item.date} horario={item.showtimes} />)
+                        :
+                        diaSessao.map((item, index) => <Sessao key={index} dia={item.weekday} data={item.date} horario={item.showtimes} />)
                 }
             </div>
 
-            <footer className="footer">
-                <img src={sessoes.posterURL} alt="" ></img>
-                <p>{sessoes.title}</p>
-            </footer>
+            <Footer imagem={sessoes.posterURL} filme={sessoes.title} />
+
         </section>
     )
 }
